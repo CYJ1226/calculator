@@ -10,49 +10,49 @@ public class BackwardCore
 {
 	public static void main(String[] args) throws ClassNotFoundException
 	{
-		System.out.println("ÈÄÀ§¿¬»ê °è»ê±â. ³ª°¡·Á¸é exit¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+		System.out.println("í›„ìœ„ì—°ì‚° ê³„ì‚°ê¸°");
 		String input;
 		Scanner scanner = new Scanner(System.in);
 		while(true)
 		{
 			Stack<ABS_CalMember> value = new Stack<ABS_CalMember>(3);
-			System.out.print("\n¼ö½ÄÀ» ÀÔ·ÂÇÏ¼¼¿ä>>");
+			System.out.print("\nìˆ˜ì‹ì„ ì…ë ¥í•˜ì„¸ìš”>>");
 			input = scanner.nextLine();
 			//if(input.equals("exit")) break;
-			try { postfixExp(input, value); }// ÈÄÀ§ Ç¥±â ½ºÅÃ °¡Á®¿À±â.
+			try { postfixExp(input, value); }// í›„ìœ„ í‘œê¸° ìŠ¤íƒ ê°€ì ¸ì˜¤ê¸°.
 			catch(Exception e)
 			{
 				e.printStackTrace();
-				System.out.println("ÈÄÀ§ Ç¥±â °á°ú¸¦ °¡Á®¿À´ø Áß ¿À·ù°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù.");
+				System.out.println("í›„ìœ„ í‘œê¸° ê²°ê³¼ë¥¼ ê°€ì ¸ì˜¤ë˜ ì¤‘ ì˜¤ë¥˜ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤.");
 				continue;
 			}
-			System.out.print("ÈÄÀ§ Ç¥±â ½ÄÀÔ´Ï´Ù:");
+			System.out.print("í›„ìœ„ í‘œê¸° ì‹ì…ë‹ˆë‹¤:");
 			for(int i = 0; i < value.size(); i++)
-			{// ÈÄÀ§ Ç¥±â ½ºÅÃ¿¡¼­ ÇÏ³ª¾¿ Ãâ·Â.
+			{// í›„ìœ„ í‘œê¸° ìŠ¤íƒì—ì„œ í•˜ë‚˜ì”© ì¶œë ¥.
 				System.out.print(" " + value.getMemberAt(i));
 			}
-			try { System.out.println("\n¿¬»ê °á°úÀÔ´Ï´Ù: " + getValue(value)); }
+			try { System.out.println("\nì—°ì‚° ê²°ê³¼ì…ë‹ˆë‹¤: " + getValue(value)); }
 			catch(Exception e)
-			{ System.out.println("\n¿¬»ê °úÁ¤Áß ¿À·ù°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù."); }
+			{ System.out.println("\nì—°ì‚° ê³¼ì •ì¤‘ ì˜¤ë¥˜ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤."); }
 			
-			System.out.print("°è¼Ó ÇÏ½Ã°Ú½À´Ï±î? (Y/y)>> ");
+			System.out.print("ê³„ì† í•˜ì‹œê² ìŠµë‹ˆê¹Œ? (Y/y)>> ");
 			input = scanner.nextLine();
 			//if(!input.equals("Y")) break;
 			if((input.equals("Y")) || (input.equals("y"))) continue;
 			else break;
 		}
-		System.out.println("ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù.");
+		System.out.println("í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤.");
 		scanner.close();
 	}
 	private static Stack<ABS_CalMember> postfixExp(String str, Stack<ABS_CalMember> calStack)
-	{// 5¿ù 2ÀÏ ¿¬»ê °úÁ¤ Ç¥½Ã ¼öÁ¤.
-		Stack<ABS_CalMember> tempStack = new Stack<ABS_CalMember>(calStack.getSlotSize());// ¿¬»êÀ» À§ÇÑ ÀÓ½Ã ½ºÅÃ.
-		int taskInteger = 0;// ÃßÃâÁßÀÎ ¼ıÀÚ.
-		boolean numberTask = false;// ¼ıÀÚ ÃßÃâ ÀÛ¾÷ »óÅÂ¸¦ Ç¥½Ã.
+	{// 5ì›” 2ì¼ ì—°ì‚° ê³¼ì • í‘œì‹œ ìˆ˜ì •.
+		Stack<ABS_CalMember> tempStack = new Stack<ABS_CalMember>(calStack.getSlotSize());// ì—°ì‚°ì„ ìœ„í•œ ì„ì‹œ ìŠ¤íƒ.
+		int taskInteger = 0;// ì¶”ì¶œì¤‘ì¸ ìˆ«ì.
+		boolean numberTask = false;// ìˆ«ì ì¶”ì¶œ ì‘ì—… ìƒíƒœë¥¼ í‘œì‹œ.
 
 		System.out.printf("%-2s | %-7s | %-30s | %-50s\n", "In", "TaskInt", "Stack", "Out");
 		for(int i = 0; i < str.length(); i++)
-		{// ÇÑ ¹®ÀÚ¾¿ ÀĞ±â.
+		{// í•œ ë¬¸ìì”© ì½ê¸°.
 			char taskChar = str.charAt(i);
 			if(taskChar >= '0' && taskChar <= '9')
 			{
@@ -61,7 +61,7 @@ public class BackwardCore
 				numberTask = true;
 			}
 			else if(ABS_CalMember.isExist(String.valueOf(taskChar)))
-			{// ÀÔ·ÂÇÑ ¹®ÀÚ°¡ ¿¬»ê ÅäÅ«ÀÏ °æ¿ì.
+			{// ì…ë ¥í•œ ë¬¸ìê°€ ì—°ì‚° í† í°ì¼ ê²½ìš°.
 				ABS_CalMember operator = ABS_CalMember.getInstance(String.valueOf(taskChar));
 				if(numberTask)
 				{
@@ -69,11 +69,11 @@ public class BackwardCore
 					numberTask = false;
 				}
 				if(operator.toString().equals("("))
-				{// (¸¦ ¸¸³ª¸é ÀÓ½Ã ½ºÅÃ¿¡ Çª½ÃÇÑ´Ù.
+				{// (ë¥¼ ë§Œë‚˜ë©´ ì„ì‹œ ìŠ¤íƒì— í‘¸ì‹œí•œë‹¤.
 					tempStack.pushBack(operator);
 				}
 				else if(operator.toString().equals(")"))
-				{// )¸¦ ¸¸³ª¸é ÀÓ½Ã ½ºÅÃ¿¡¼­ ( °¡ ³ª¿Ã ¶§±îÁö ÆËÇÏ°í, (´Â ÀÓ½Ã ½ºÅÃ¿¡¼­ ÆËÇÏ¿© ¹ö¸°´Ù.
+				{// )ë¥¼ ë§Œë‚˜ë©´ ì„ì‹œ ìŠ¤íƒì—ì„œ ( ê°€ ë‚˜ì˜¬ ë•Œê¹Œì§€ íŒí•˜ê³ , (ëŠ” ì„ì‹œ ìŠ¤íƒì—ì„œ íŒí•˜ì—¬ ë²„ë¦°ë‹¤.
 					while(tempStack.size() >= 0)
 					{
 						if(tempStack.getBack().toString().equals("("))
@@ -86,20 +86,20 @@ public class BackwardCore
 					}
 				}
 				else if(operator instanceof ABS_Calculer)
-				{// °ıÈ£°¡ ¾Æ´Ò°æ¿ì.
+				{// ê´„í˜¸ê°€ ì•„ë‹ê²½ìš°.
 					ABS_Calculer calOper = (ABS_Calculer)operator;
 					while(true)
-					{// ¿¬»êÀÚ¸¦ ¸¸³ª¸é ÀÓ½Ã ½ºÅÃ¿¡¼­ ±× ¿¬»êÀÚº¸´Ù ³·Àº ¿ì¼±¼øÀ§ÀÇ ¿¬»êÀÚ¸¦ ¸¸³¯ ¶§±îÁö ÆËÇÏ¿©
-						// ÈÄÀ§ Ç¥±â ½ºÅÃ¿¡ ÀúÀåÇÑ µÚ¿¡ ÀÚ½ÅÀ» Çª½ÃÇÑ´Ù.
+					{// ì—°ì‚°ìë¥¼ ë§Œë‚˜ë©´ ì„ì‹œ ìŠ¤íƒì—ì„œ ê·¸ ì—°ì‚°ìë³´ë‹¤ ë‚®ì€ ìš°ì„ ìˆœìœ„ì˜ ì—°ì‚°ìë¥¼ ë§Œë‚  ë•Œê¹Œì§€ íŒí•˜ì—¬
+						// í›„ìœ„ í‘œê¸° ìŠ¤íƒì— ì €ì¥í•œ ë’¤ì— ìì‹ ì„ í‘¸ì‹œí•œë‹¤.
 						if(tempStack.size() == 0)
-						{// ÀÓ½Ã ½ºÅÃÀÌ ºñ¾úÀ» °æ¿ì ºüÁ®³ª°¨.
+						{// ì„ì‹œ ìŠ¤íƒì´ ë¹„ì—ˆì„ ê²½ìš° ë¹ ì ¸ë‚˜ê°.
 							tempStack.pushBack(operator);
 							break;
 						}
 						ABS_Calculer calculer = tempStack.getBack() instanceof ABS_Calculer ?
 								(ABS_Calculer)tempStack.getBack() : null;
 						if(calculer == null || calculer.getPriority() < calOper.getPriority())
-						{// ³·Àº ¿ì¼±¼øÀ§ÀÇ ¿¬»êÀÚ¸¦ ¸¸³µ°Å³ª, °ıÈ£¸¦ ¸¸³µÀ»°æ¿ì ºüÁ®³ª°¨.
+						{// ë‚®ì€ ìš°ì„ ìˆœìœ„ì˜ ì—°ì‚°ìë¥¼ ë§Œë‚¬ê±°ë‚˜, ê´„í˜¸ë¥¼ ë§Œë‚¬ì„ê²½ìš° ë¹ ì ¸ë‚˜ê°.
 							tempStack.pushBack(calOper);
 							break;
 						}
@@ -113,14 +113,14 @@ public class BackwardCore
 		}
 		if(numberTask) calStack.pushBack(new NumOperand(taskInteger));
 		while(tempStack.size() > 0)
-		{// ¸¶Áö¸· ³²Àº ¿¬»êÀÚµéÀ» Çª½Ã.
+		{// ë§ˆì§€ë§‰ ë‚¨ì€ ì—°ì‚°ìë“¤ì„ í‘¸ì‹œ.
 			calStack.pushBack(tempStack.getBack());
 			tempStack.popBack();
 		}
 		return calStack;
 	}
 	private static NumOperand getValue(Stack<ABS_CalMember> postfixStack)
-	{// ÈÄÀ§ Ç¥±â ½ºÅÃÀ» ¹ÙÅÁÀ¸·Î °ª °¡Á®¿À±â.
+	{// í›„ìœ„ í‘œê¸° ìŠ¤íƒì„ ë°”íƒ•ìœ¼ë¡œ ê°’ ê°€ì ¸ì˜¤ê¸°.
 		Stack<NumOperand> tempNumStack = new Stack<NumOperand>(postfixStack.getSlotSize());
 		for(int i = 0; i < postfixStack.size(); i++)
 		{
@@ -128,20 +128,20 @@ public class BackwardCore
 			NumOperand x, y, number;
 			ABS_Calculer calculer;
 			if(taskMember instanceof NumOperand)
-			{// ÀĞÀº ¸â¹ö°¡ ÇÇ¿¬»êÀÚ¶ó¸é.
+			{// ì½ì€ ë©¤ë²„ê°€ í”¼ì—°ì‚°ìë¼ë©´.
 				number = (NumOperand)taskMember;
 				tempNumStack.pushBack(number);
 			}
 			else if(taskMember instanceof ABS_Calculer)
-			{// ÀĞÀº ¸â¹ö°¡ ¿¬»êÀÚ¶ó¸é.
+			{// ì½ì€ ë©¤ë²„ê°€ ì—°ì‚°ìë¼ë©´.
 				calculer = (ABS_Calculer)taskMember;
-				// ÀÓ½Ã ½ºÅÃ¿¡¼­ µÎ ÇÇ ¿¬»êÀÚ¸¦ ²¨³½´ÙÀ½ ¿¬»êÇÑ ´ÙÀ½ °á°ú¸¦ ´Ù½Ã Çª½Ã.
+				// ì„ì‹œ ìŠ¤íƒì—ì„œ ë‘ í”¼ ì—°ì‚°ìë¥¼ êº¼ë‚¸ë‹¤ìŒ ì—°ì‚°í•œ ë‹¤ìŒ ê²°ê³¼ë¥¼ ë‹¤ì‹œ í‘¸ì‹œ.
 				x = tempNumStack.getBack(); tempNumStack.popBack();
 				y = tempNumStack.getBack(); tempNumStack.popBack();
 				tempNumStack.pushBack(calculer.task(y, x));
 			}
 		}
 		if(tempNumStack.getMemberAt(0) == null) throw new NullPointerException();
-		return tempNumStack.getMemberAt(0);// ÀÓ½Ã ½ºÅÃ¿¡ ¸¶Áö¸· ³²Àº ¼ıÀÚ°¡ °á°ú.
+		return tempNumStack.getMemberAt(0);// ì„ì‹œ ìŠ¤íƒì— ë§ˆì§€ë§‰ ë‚¨ì€ ìˆ«ìê°€ ê²°ê³¼.
 	}
 }
